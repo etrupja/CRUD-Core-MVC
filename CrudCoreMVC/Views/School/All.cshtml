@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<School>
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<h2>All Schools are Shown Here</h2>
+
+@Html.ActionLink("Create new School", "CreateSchool", "School")
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover">
+        <thead>
+        <th>School Name</th>
+        <th>School Address</th>
+        <th>Founding Year</th>
+        <th>Number of Students</th>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Details</th>
+
+        }
+
+        </thead>
+        <tbody>
+            @foreach (School school in Model)
+            {
+                <tr>
+                    <td>@school.Name</td>
+                    <td>@school.Address</td>
+                    <td>@school.FoundingYear.ToString("yyyy-MM-dd")</td>
+                    <td>@school.NumberOfStudents</td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <td>@Html.ActionLink("Edit", "EditSchool", "School", new { @id = school.Id })</td>
+                        <td>@Html.ActionLink("Delete", "DeleteSchool", "School", new { @id = school.Id })</td>
+                        <td>@Html.ActionLink("Details", "SchoolDetails", "School", new { @id = school.Id })</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center alert-info">
+        <h1>There are no schools available.</h1>
+    </div>
+}

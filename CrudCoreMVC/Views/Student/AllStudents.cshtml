@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<Student>
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "AllStudents";
+}
+
+<h2>@ViewData["StudentMessage"]</h2>
+
+@Html.ActionLink("Create Student", "CreateStudent", "Student")
+
+
+
+
+
+@if (Model.Count() == 0)
+{
+    <div class="text-center alert-info">
+        <h1>
+            There are no students available.
+        </h1>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <th>Full Name</th>
+        <th>Middle Name</th>
+        <th>Email Address</th>
+        <th>Age</th>
+        <th>Birthday</th>
+        <th>GPA</th>
+        <th>Name of Teacher</th>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <th>Edit</th>
+            <th>Delete</th>
+        }
+        </thead>
+        <tbody>
+            @foreach (Student student in Model)
+            {
+                <tr>
+                    <td>@student.FullName</td>
+                    <td>@student.MiddleName</td>
+                    <td>@student.EmailAddress</td>
+                    <td>@student.Age</td>
+                    <td>@student.Birthday.ToString("yyyy-MM-dd")</td>
+                    <td>@student.GPA</td>
+                    <td>@student.Teacher.FullName</td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <td>@Html.ActionLink("Edit Student", "EditStudent", "Student", new { @id = student.Id })</td>
+                        <td>@Html.ActionLink("Delete Student", "DeleteStudent", "Student", new { @id = student.Id })</td>
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}

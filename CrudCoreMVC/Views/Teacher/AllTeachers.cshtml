@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<Teacher>
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData["Title"] = "Teacher";
+}
+
+<h2>@ViewData["myFirstViewData"]</h2>
+
+@Html.ActionLink("Create Teacher", "CreateTeacher", "Teacher")
+@if (Model.Count() == 0)
+{
+    <div class="alert-info text-center">
+        <h1>There are no teachers available.</h1>
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <th>Full Name</th>
+        <th>Name of School</th>
+        <th>Age</th>
+        <th>Years Of Experience</th>
+        <th>Phone Number</th>
+        <th>Subject</th>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Details</th>
+        }
+
+        </thead>
+        <tbody>
+            @foreach (Teacher dfk in Model)
+            {
+                <tr>
+                    <td>@dfk.FullName</td>
+                    <td>@dfk.School.Name</td>
+                    <td>@dfk.Age</td>
+                    <td>@dfk.YearsOfExperience</td>
+                    <td>@dfk.PhoneNumber</td>
+                    <td>@dfk.Subject</td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                    <td>@Html.ActionLink("Edit Teacher", "EditTeacher", "Teacher", new { @id = dfk.Id })</td>
+                    <td>@Html.ActionLink("Delete Teacher", "DeleteTeacher", "Teacher", new { @id = dfk.Id })</td>
+                    <td>@Html.ActionLink("Details", "TeacherDetails", "Teacher", new { @id = dfk.Id })</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

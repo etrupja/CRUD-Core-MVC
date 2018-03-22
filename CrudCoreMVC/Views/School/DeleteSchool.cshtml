@@ -1,0 +1,14 @@
+﻿@model SchoolViewModel
+@{
+    ViewData["Title"] = "DeleteSchool";
+}
+
+<div class="text-center">
+    <h2 class="text-danger">You are about to delete the School: @Model.SchoolName</h2>
+    <h3>Are you sure?</h3>
+</div>
+
+@Html.ActionLink("Cancel","All","School")
+@Html.ActionLink("Yes, sure!","SchoolDeleted","School",new {@id = Model.Id })
+
+

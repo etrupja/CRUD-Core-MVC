@@ -1,0 +1,50 @@
+﻿@model Teacher
+@{
+    ViewData["Title"] = "CreateTeacher";
+}
+
+<h2>Create New Teacher</h2>
+
+@Html.ActionLink("Show All Teachers", "AllTeachers", "Teacher")
+
+@using (Html.BeginForm("TeacherCreated", "Teacher", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(n => n.SchoolId)
+        @Html.DropDownListFor(n => n.SchoolId, new SelectList(ViewBag.Schools, "Id","Name"), "Select a school", new { @class = "form-control"})
+        @Html.ValidationMessageFor(n => n.SchoolId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.FullName)
+        @Html.TextBoxFor(n => n.FullName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.FullName, "", new { @class = "text-danger"} )
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.Age)
+        @Html.TextBoxFor(e => e.Age, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.Age, "", new { @class = "text-danger"})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.YearsOfExperience)
+        @Html.TextBoxFor(a => a.YearsOfExperience, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.YearsOfExperience, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.PhoneNumber)
+        @Html.TextBoxFor(a => a.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n => n.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.Subject)
+        @Html.TextBoxFor(a => a.Subject, new { @class = "form-control" })
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Create Teacher</button>
+}
+

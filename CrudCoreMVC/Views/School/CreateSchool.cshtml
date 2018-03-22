@@ -1,0 +1,36 @@
+﻿@model School
+@{
+    ViewData["Title"] = "CreateSchool";
+}
+<h2>Create New School</h2>
+
+@Html.ActionLink("Show All Schools", "All", "School")
+
+@using (Html.BeginForm("SchoolCreated","School", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(n => n.Name)
+        @Html.TextBoxFor(n => n.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n=>n.Name, "", new{ @class="text-danger"})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.Address)
+        @Html.TextBoxFor(e => e.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(n=>n.Address, "", new{ @class="text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.FoundingYear)
+        @Html.TextBoxFor(a => a.FoundingYear, new { @class = "form-control", @type="date" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(n => n.NumberOfStudents)
+        @Html.TextBoxFor(a => a.NumberOfStudents, new { @class = "form-control"})
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Create School</button>
+}
+

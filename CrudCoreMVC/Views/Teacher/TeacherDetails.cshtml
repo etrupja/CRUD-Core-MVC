@@ -1,0 +1,45 @@
+﻿@model TeacherViewModel
+@{
+    ViewData["Title"] = "TeacherDetails";
+}
+<div class="text-center">
+    <h2>These are the students for this teacher: <b>@Model.TeacherName</b></h2>
+</div>
+<hr />
+
+@if (Model.Students.Count() == 0)
+{
+    <h2 class="alert-info">
+        There are no students for this teacher.
+    </h2>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <th>Full Name</th>
+        <th>Middle Name</th>
+        <th>Email Address</th>
+        <th>Age</th>
+        <th>Birthday</th>
+        <th>GPA</th>
+        <th>Name of Teacher</th>
+        </thead>
+        <tbody>
+            @foreach (Student student in Model.Students)
+        {
+                <tr>
+                    <td>@student.FullName</td>
+                    <td>@student.MiddleName</td>
+                    <td>@student.EmailAddress</td>
+                    <td>@student.Age</td>
+                    <td>@student.Birthday.ToString("yyyy-MM-dd")</td>
+                    <td>@student.GPA</td>
+                    <td>@student.Teacher.FullName</td>
+                </tr>
+
+        }
+
+        </tbody>
+    </table>
+            }

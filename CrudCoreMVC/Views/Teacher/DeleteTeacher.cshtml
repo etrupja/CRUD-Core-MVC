@@ -1,0 +1,10 @@
+﻿@model TeacherViewModel
+
+
+<div class="text-center">
+    <h2 class="text-danger">You are about to delete the Teacher: @Model.FullName</h2>
+    <h3>Are you sure?</h3>
+</div>
+@Html.ActionLink("Cancel", "AllTeachers", "Teacher", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Yes, sure!", "TeacherDeleted", "Teacher", new { @id = Model.Id }, new { @class="btn btn-danger" })
+
