@@ -26,8 +26,15 @@ namespace CrudCoreMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => 
-            options.UseSqlServer(@"Data Source=.;Initial Catalog=SchoolManagement;Integrated Security=True"));
+            if (Configuration.GetConnectionString("Default") == "MSSQL")
+            {
+                this.MsSqlConnection(services);
+            }
+            else
+            {
+                this.MySqlConnection(services);
+            }
+
             services.AddTransient<ISchoolService, SchoolService>();
             services.AddTransient<ITeacherService, TeacherService>();
             services.AddTransient<IStudentService, StudentService>();
@@ -54,6 +61,20 @@ namespace CrudCoreMVC
             });
 
             services.AddMvc();
+        }
+
+        private void MySqlConnection(IServiceCollection services)
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("MYSQLConnection"))
+            );
+        }
+
+        private void MsSqlConnection(IServiceCollection services)
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("MSSQLConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
