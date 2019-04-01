@@ -8,7 +8,7 @@ However you may still need to do make changes to your project.
 
     1.0 Configure Database connection in appsettings.json
         By default it uses MSSQL, If you are using MYSQL update the settings
-        and set the default to MYSQL
+        and set the default to MYSQL.
         
     1.1 Add a constructor:
         public IConfiguration Configuration { get; }
